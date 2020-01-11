@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "sltd99.github.io/static/css/main.27fd15f6.chunk.css",
+    "main.js": "sltd99.github.io/static/js/main.560dde48.chunk.js",
+    "main.js.map": "sltd99.github.io/static/js/main.560dde48.chunk.js.map",
+    "runtime-main.js": "sltd99.github.io/static/js/runtime-main.f9eb19f8.js",
+    "runtime-main.js.map": "sltd99.github.io/static/js/runtime-main.f9eb19f8.js.map",
+    "static/css/2.88f9b361.chunk.css": "sltd99.github.io/static/css/2.88f9b361.chunk.css",
+    "static/js/2.ef66ca5e.chunk.js": "sltd99.github.io/static/js/2.ef66ca5e.chunk.js",
+    "static/js/2.ef66ca5e.chunk.js.map": "sltd99.github.io/static/js/2.ef66ca5e.chunk.js.map",
+    "index.html": "sltd99.github.io/index.html",
+    "precache-manifest.905e0a29744dbb0c5ad8aa131d0d0e96.js": "sltd99.github.io/precache-manifest.905e0a29744dbb0c5ad8aa131d0d0e96.js",
+    "service-worker.js": "sltd99.github.io/service-worker.js",
+    "static/css/2.88f9b361.chunk.css.map": "sltd99.github.io/static/css/2.88f9b361.chunk.css.map",
+    "static/css/main.27fd15f6.chunk.css.map": "sltd99.github.io/static/css/main.27fd15f6.chunk.css.map",
+    "static/js/2.ef66ca5e.chunk.js.LICENSE": "sltd99.github.io/static/js/2.ef66ca5e.chunk.js.LICENSE",
+    "static/media/all.css": "sltd99.github.io/static/media/fa-solid-900.f6121be5.woff2"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f9eb19f8.js",
+    "static/css/2.88f9b361.chunk.css",
+    "static/js/2.ef66ca5e.chunk.js",
+    "static/css/main.27fd15f6.chunk.css",
+    "static/js/main.560dde48.chunk.js"
+  ]
+}
