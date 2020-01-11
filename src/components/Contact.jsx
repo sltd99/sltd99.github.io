@@ -27,12 +27,10 @@ class Contact extends Component {
       .collection("contacts")
       .doc(id)
       .delete();
-
-    dispatch({ type: "DELETE_CONTACT", payload: id });
   };
 
   render() {
-    const { id, name, email, phone } = this.props.contact;
+    const { id, name, email, phone, message } = this.props.contact;
     const { showContactInfo } = this.state;
 
     return (
@@ -76,6 +74,9 @@ class Contact extends Component {
                 <ul className="list-group">
                   <li className="list-group-item">Email: {email}</li>
                   <li className="list-group-item">Phone: {phone}</li>
+                  <li className="list-group-item">
+                    <b>Message</b>: {message}
+                  </li>
                 </ul>
               ) : null}
             </div>

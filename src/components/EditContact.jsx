@@ -1,30 +1,39 @@
 import React, { Component } from "react";
 import { db, Consumer } from "../context";
 
-export class AddContact extends Component {
+export class EditContact extends Component {
   state = {
-    name: "",
-    email: "",
-    phone: "",
     errors: {}
   };
+
+  async componentDidMount() {
+    const { id } = this.props.match.params;
+    const doc = await db
+      .collection("contacts")
+      .doc(id)
+      .get();
+
+    this.setState(doc.data());
+  }
 
   formOnChange = e => this.setState({ [e.target.name]: e.target.value });
   formOnSubmit = async (dispatch, e) => {
     e.preventDefault();
 
-    const { name, email, phone } = this.state;
+    const { id } = this.props.match.params;
+    const { name, email, phone, message } = this.state;
+    const editContact = { name, email, phone, message };
 
-    const newContact = { name, email, phone };
-
-    const id = await db.collection("contacts").add(newContact).id;
-
-    dispatch({ type: "ADD_CONTACT", payload: { id, ...newContact } });
+    await db
+      .collection("contacts")
+      .doc(id)
+      .set(editContact);
 
     this.setState({
       name: "",
       email: "",
       phone: "",
+      message: "",
       errors: {}
     });
 
@@ -32,11 +41,12 @@ export class AddContact extends Component {
   };
 
   render() {
+    const { name, email, phone, message } = this.state;
     return (
       <Consumer>
         {value => (
           <div className="card mb-3">
-            <div className="card-header">Add Contact</div>
+            <div className="card-header">Edit Contact</div>
             <div className="card-body">
               <form
                 action="#"
@@ -47,9 +57,10 @@ export class AddContact extends Component {
                   <label>Name</label>
                   <input
                     type="text"
-                    className="form-control form-control-md"
+                    className={`form-control form-control-md`}
                     name="name"
                     placeholder="Enter your name..."
+                    defaultValue={name}
                     required
                   />
                 </div>
@@ -61,6 +72,7 @@ export class AddContact extends Component {
                     className="form-control form-control-md"
                     name="email"
                     placeholder="Enter your email..."
+                    defaultValue={email}
                     required
                   />
                 </div>
@@ -71,12 +83,24 @@ export class AddContact extends Component {
                     className="form-control form-control-md"
                     name="phone"
                     placeholder="Enter your phone..."
+                    defaultValue={phone}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Message</label>
+                  <input
+                    type="text"
+                    className="form-control form-control-md"
+                    name="message"
+                    placeholder="Enter your phone..."
+                    defaultValue={message}
                     required
                   />
                 </div>
                 <input
                   type="submit"
-                  value="Add Contact"
+                  value="Update Contact"
                   className="btn btn-light btn-block"
                 />
               </form>
@@ -88,4 +112,4 @@ export class AddContact extends Component {
   }
 }
 
-export default AddContact;
+export default EditContact;
