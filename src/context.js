@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import axios from "axios";
+import db from "./firestore";
+
 const Context = React.createContext();
+const Consumer = Context.Consumer;
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,9 +42,10 @@ export class Provider extends Component {
   };
 
   async componentDidMount() {
-    const res = await axios.get("https://jsonplaceholder.typicode.com/users");
+    const snapshot = await db.collection("contacts").get();
+    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-    this.setState({ contacts: res.data });
+    this.setState({ contacts: data });
   }
 
   render() {
@@ -54,4 +57,4 @@ export class Provider extends Component {
   }
 }
 
-export const Consumer = Context.Consumer;
+export { db, Consumer };

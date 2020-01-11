@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { Consumer } from "../context";
+import { db, Consumer } from "../context";
 
 export class AddContact extends Component {
   state = {
@@ -18,12 +17,9 @@ export class AddContact extends Component {
 
     const newContact = { name, email, phone };
 
-    const res = await axios.post(
-      "https://jsonplaceholder.typicode.com/users",
-      newContact
-    );
-    console.log(res);
-    dispatch({ type: "ADD_CONTACT", payload: res.data });
+    const id = await db.collection("contacts").add(newContact).id;
+
+    dispatch({ type: "ADD_CONTACT", payload: { id, ...newContact } });
 
     this.setState({
       name: "",
@@ -51,14 +47,11 @@ export class AddContact extends Component {
                   <label>Name</label>
                   <input
                     type="text"
-                    className={`${
-                      true ? "is-invalid" : ""
-                    } form-control form-control-md`}
+                    className="form-control form-control-md"
                     name="name"
                     placeholder="Enter your name..."
                     required
                   />
-                  <div className="invalid-feedback">Noo GOod</div>
                 </div>
 
                 <div className="form-group">

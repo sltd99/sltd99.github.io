@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import PropTypes from "prop-types";
-import { Consumer } from "../context";
+import { db, Consumer } from "../context";
 
 class Contact extends Component {
   state = {
@@ -24,11 +23,11 @@ class Contact extends Component {
   };
 
   deleteContact = async (id, dispatch) => {
-    const res = await axios.delete(
-      `https://jsonplaceholder.typicode.com/users/${id}`
-    );
+    await db
+      .collection("contacts")
+      .doc(id)
+      .delete();
 
-    console.log(res);
     dispatch({ type: "DELETE_CONTACT", payload: id });
   };
 
@@ -52,7 +51,15 @@ class Contact extends Component {
                   className="fas fa-sort-down"
                   style={{ cursor: "pointer" }}
                 ></i>
-                <i className="fas fa-trash" style={{ float: "right" }}></i>
+                <i
+                  className="fas fa-trash"
+                  style={{
+                    float: "right",
+                    cursor: "pointer",
+                    color: "black",
+                    marginRight: "1rem"
+                  }}
+                ></i>
                 <Link to={`/edit/${id}`}>
                   <i
                     className="fas fa-pencil-alt"

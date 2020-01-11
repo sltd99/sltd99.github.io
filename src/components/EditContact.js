@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { Consumer } from "../context";
+import { db, Consumer } from "../context";
 
 export class EditContact extends Component {
   state = {
@@ -9,13 +8,12 @@ export class EditContact extends Component {
 
   async componentDidMount() {
     const { id } = this.props.match.params;
-    const res = await axios.get(
-      `https://jsonplaceholder.typicode.com/users/${id}`
-    );
-    const { name, email, phone } = res.data;
+    const doc = await db
+      .collection("contacts")
+      .doc(id)
+      .get();
 
-    this.setState({ name, email, phone });
-    console.log(this.state);
+    this.setState(doc.data());
   }
 
   formOnChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -26,14 +24,12 @@ export class EditContact extends Component {
     const { name, email, phone } = this.state;
     const editContact = { name, email, phone };
 
-    const res = await axios.put(
-      `https://jsonplaceholder.typicode.com/users/${id}`,
-      editContact
-    );
+    await db
+      .collection("contacts")
+      .doc(id)
+      .set(editContact);
 
-    console.log(res);
-
-    dispatch({ type: "EDIT_CONTACT", payload: res.data });
+    dispatch({ type: "EDIT_CONTACT", payload: { id, ...editContact } });
 
     this.setState({
       name: "",
