@@ -18,7 +18,7 @@ function App() {
     <Provider>
       <Router>
         <div className="App">
-          <Header title="Contact Manager / Stupid Chatroom" />
+          <Header title="Contact Manager" />
           <div className="container">
             <Switch>
               <Route exact path="/" component={Contacts} />
